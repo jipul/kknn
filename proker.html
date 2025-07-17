@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Program Kerja (Proker) KKN</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #81c784;
+        }
+        h1 {
+            text-align: center;
+            color: #1b5e20;
+            margin-bottom: 1rem;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #1b5e20;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            font-weight: 600;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+        .tab:hover {
+            background-color: #81c784;
+        }
+        .tab.active {
+            background-color: #2e7d32;
+            color: white;
+            cursor: default;
+        }
+        .tab-content {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0 8px 8px 8px;
+            box-shadow: inset 0 0 5px #81c784;
+            min-height: 200px;
+        }
+        h2 {
+            color: #1b5e20;
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Program Kerja (Proker) KKN di Pondok Pesantren</h1>
+    <div class="tabs" role="tablist" aria-label="Program Kerja Tabs">
+        <div class="tab active" role="tab" tabindex="0" aria-selected="true" aria-controls="proker1" id="tab1">Proker 1</div>
+        <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="proker2" id="tab2">Proker 2</div>
+        <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="proker3" id="tab3">Proker 3</div>
+        <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="proker4" id="tab4">Proker 4</div>
+        <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="proker5" id="tab5">Proker 5</div>
+    </div>
+    <div class="tab-content" id="proker1" role="tabpanel" aria-labelledby="tab1">
+        <h2>Kegiatan Sosial</h2>
+        <p><strong>Judul:</strong> Kegiatan Sosial dalam Rangka HUT RI ke-77</p>
+        <p><strong>Tujuan:</strong> Meningkatkan kesadaran dan partisipasi santri dalam kegiatan sosial</p>
+        <p><strong>Anggaran:</strong> Rp 100.000</p>
+    </div>
+    <div class="tab-content" id="proker2" role="tabpanel" aria-labelledby="tab2" hidden>
+        <h2>Pengembangan Metode Pembelajaran</h2>
+        <p><strong>Tujuan:</strong> Meningkatkan kualitas pembelajaran di pesantren</p>
+        <p><strong>Kegiatan:</strong> Penggunaan metode pembelajaran aktif, pelatihan guru, dan pengembangan kurikulum</p>
+        <p><strong>Anggaran:</strong> Rp 300.000</p>
+    </div>
+    <div class="tab-content" id="proker3" role="tabpanel" aria-labelledby="tab3" hidden>
+        <h2>Konseling Santri: Meningkatkan Keseimbangan Mental dan Emosional</h2>
+        <p><strong>Tujuan:</strong> Meningkatkan kesadaran santri tentang pentingnya keseimbangan mental dan emosional</p>
+        <p><strong>Anggaran:</strong> Rp 200.000</p>
+    </div>
+    <div class="tab-content" id="proker4" role="tabpanel" aria-labelledby="tab4" hidden>
+        <h2>Pengembangan Lingkungan Pesantren Melalui Penanaman Pohon</h2>
+        <p><strong>Tujuan:</strong> Meningkatkan kesadaran santri akan pentingnya menjaga lingkungan pesantren</p>
+        <p><strong>Anggaran:</strong> Rp 300.000</p>
+    </div>
+    <div class="tab-content" id="proker5" role="tabpanel" aria-labelledby="tab5" hidden>
+        <h2>Pengembangan Kewirausahaan Santri Melalui Pelatihan Keterampilan</h2>
+        <p><strong>Tujuan:</strong> Meningkatkan keterampilan santri dalam bidang ekonomi dan kewirausahaan</p>
+        <p><strong>Anggaran:</strong> Rp 300.000</p>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                    t.setAttribute('tabindex', '-1');
+                });
+                tabContents.forEach(tc => tc.hidden = true);
+
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                tab.setAttribute('tabindex', '0');
+                tabContents[index].hidden = false;
+                tabContents[index].focus();
+            });
+
+            tab.addEventListener('keydown', (e) => {
+                let newIndex = null;
+                if (e.key === 'ArrowRight') {
+                    newIndex = (index + 1) % tabs.length;
+                } else if (e.key === 'ArrowLeft') {
+                    newIndex = (index - 1 + tabs.length) % tabs.length;
+                }
+                if (newIndex !== null) {
+                    tabs[newIndex].focus();
+                    tabs[newIndex].click();
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
